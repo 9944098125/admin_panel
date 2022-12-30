@@ -1,0 +1,49 @@
+.navWithOutlet {
+    flex:10;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+.css-30a596-MuiListItem-root {
+    padding-left: 0px !important;
+}
+
+.MuiListItem-root .MuiListItem-gutters .MuiListItem-padding .css-30a596-MuiListItem-root {
+    padding: 0px !important;
+}
+
+.outlet {
+    height: 90vh;
+    overflow-y: scroll;
+}
+
+.chartGrid {
+    stroke: rgb(164, 158, 158);
+}
+
+.productImage {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.itemDetails {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.primary-input-field {
+    height:40px;
+    width: 46%;
+    border:none;
+    border-bottom: 2px solid rgb(193, 7, 112);
+    margin-bottom: 25px;
+    margin-right: 15px;
+    outline: none;
+}
+.css-8pueru-MuiTablePagination-displayedRows,
+.MuiTablePagination-actions {
+    color: rgb(255, 106, 0) !important;
+}

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Avatar, Box, Button, Typography } from "@mui/material";
 import Chart from "../Components/Chart";
 import EmailIcon from "@mui/icons-material/Email";
@@ -6,8 +6,18 @@ import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import BusinessIcon from "@mui/icons-material/Business";
 import FlagIcon from "@mui/icons-material/Flag";
 import TableList from "../Components/Table";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Single() {
+  const user = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user.user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
   return (
     <Fragment>
       <Box sx={{ p: 1 }}>

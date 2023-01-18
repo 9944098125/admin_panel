@@ -1,11 +1,22 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Avatar, Box, Button, Typography } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function New({ inputs, title }) {
   const [image, setImage] = useState("");
   const changeImage = (photo) => {};
+
+  const user = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user.user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   const submitSuccess = (values) => {};
 

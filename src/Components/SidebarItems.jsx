@@ -9,13 +9,12 @@ import SettingsSystemDaydreamIcon from "@mui/icons-material/SettingsSystemDaydre
 import AddToQueueIcon from "@mui/icons-material/AddToQueue";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import LogoutIcon from "@mui/icons-material/Logout";
 
 export const main = [
   {
     icon: <DashboardIcon />,
     text: "Dashboard",
-    link: "/",
+    link: "/home",
   },
 ];
 
@@ -33,12 +32,12 @@ export const lists = [
   {
     icon: <SettingsVoiceIcon />,
     text: "Orders",
-    link: "/",
+    link: "/home",
   },
   {
     icon: <DeliveryDiningIcon />,
     text: "Delivery",
-    link: "/",
+    link: "/home",
   },
 ];
 
@@ -46,12 +45,12 @@ export const useful = [
   {
     icon: <QueryStatsIcon />,
     text: "Stats",
-    link: "/",
+    link: "/home",
   },
   {
     icon: <NotificationsIcon />,
     text: "Notifications",
-    link: "/",
+    link: "/home",
   },
 ];
 
@@ -59,17 +58,17 @@ export const services = [
   {
     icon: <SettingsSystemDaydreamIcon />,
     text: "System Health",
-    link: "/",
+    link: "/home",
   },
   {
     icon: <AddToQueueIcon />,
     text: "Logs",
-    link: "/",
+    link: "/home",
   },
   {
     icon: <SettingsIcon />,
     text: "Settings",
-    link: "/",
+    link: "/home",
   },
 ];
 
@@ -77,11 +76,6 @@ export const user = [
   {
     icon: <AccountCircleIcon />,
     text: "Profile",
-    link: "/",
-  },
-  {
-    icon: <LogoutIcon />,
-    text: "Logout",
-    link: "/",
+    link: "/home",
   },
 ];

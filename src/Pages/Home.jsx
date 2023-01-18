@@ -1,13 +1,22 @@
 import { Box, Typography } from "@mui/material";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import Chart from "../Components/Chart";
 import FeaturedCharts from "../Components/FeaturedCharts";
 import Widget from "../Components/Widget";
 import TableList from "../Components/Table";
 import { useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Home() {
   const toggleTheme = useSelector((state) => state.themeReducer);
+  const user = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user.user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   return (
     <Fragment>

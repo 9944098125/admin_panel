@@ -1,19 +1,28 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows } from "../DatatableSource";
+import { userColumns } from "../DatatableSource";
 import { Box } from "@mui/system";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
 import { Button, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsersAction } from "../Redux/Actions/getUsers";
 
 export default function DataTable({ title, btnText, link }) {
-  const [data, setData] = useState(userRows);
+  const dispatch = useDispatch();
+  const [data, setData] = useState([]);
 
   const deleteRow = (id) => {
     setData(data.filter((item) => item.id !== id));
   };
+
+  const GetUsers = useSelector((state) => state.getUsers);
+
+  useEffect(() => {
+    dispatch(getUsersAction());
+    setData(GetUsers.users);
+  }, [dispatch, data]);
 
   const toggleTheme = useSelector((state) => state.themeReducer);
 
@@ -101,6 +110,7 @@ export default function DataTable({ title, btnText, link }) {
             pageSize={5}
             rowsPerPageOptions={[5]}
             checkboxSelection
+            getRowId={(row) => row._id}
           />
         </div>
       </Box>

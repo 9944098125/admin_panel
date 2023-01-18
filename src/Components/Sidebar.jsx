@@ -8,12 +8,22 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { lists, main, services, useful, user } from "./SidebarItems";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../Redux/Actions/loginAction";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const toggleTheme = useSelector((state) => state.themeReducer);
+
+  const logoutFunc = () => {
+    dispatch(logout);
+    navigate("/login");
+    console.log("clicked logout");
+  };
 
   return (
     <Fragment>
@@ -249,30 +259,19 @@ const Sidebar = () => {
           </List>
         </Box>
         <Box
+          onClick={logoutFunc}
           display="flex"
           alignItems="center"
           justifyContent="center"
           gap="20px"
-          sx={{ pt: 1, borderTop: "2px solid cyan" }}
+          sx={{ pt: 1, borderTop: "2px solid cyan", cursor: "pointer" }}
         >
-          {/* <Box
-            sx={{
-              height: "20px",
-              width: "20px",
-              backgroundColor: "white",
-              border: "1px solid black",
-              borderRadius: "8px",
-            }}
-          ></Box>
-          <Box
-            sx={{
-              height: "20px",
-              width: "20px",
-              backgroundColor: "black",
-              border: "1px solid grey",
-              borderRadius: "8px",
-            }}
-          ></Box> */}
+          <LogoutIcon sx={{ color: "primary.main" }} />
+          <Typography
+            sx={{ fontSize: "14px", fontWeight: "900", color: "primary.dark" }}
+          >
+            Logout
+          </Typography>
         </Box>
       </Box>
     </Fragment>

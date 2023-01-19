@@ -3,13 +3,9 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field } from "formik";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
-import { loginAction } from "../Redux/Actions/loginAction";
 import Alert from "../Components/Alert";
 
 function Login() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [credentials] = useState({
     email: "",
     password: "",
@@ -19,8 +15,6 @@ function Login() {
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-
-  const AlertState = useSelector((state) => state.alert);
 
   const validate = (values) => {
     let errors = {};
@@ -46,12 +40,7 @@ function Login() {
     return errors;
   };
 
-  const callLoginApi = (values) => {
-    if (values) {
-      dispatch(loginAction(values));
-      navigate("/home");
-    }
-  };
+  const callLoginApi = (values) => {};
 
   return (
     <Fragment>
@@ -68,7 +57,6 @@ function Login() {
         }}
       >
         {/* glass effect */}
-        {AlertState.message && <Alert show={true} />}
         <Box
           sx={{
             background: "rgba(255, 255, 255, 0.2)",

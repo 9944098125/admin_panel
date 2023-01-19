@@ -10,19 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUsersAction } from "../Redux/Actions/getUsers";
 
 export default function DataTable({ title, btnText, link }) {
-  const dispatch = useDispatch();
   const [data, setData] = useState([]);
 
   const deleteRow = (id) => {
     setData(data.filter((item) => item.id !== id));
   };
-
-  const GetUsers = useSelector((state) => state.getUsers);
-
-  useEffect(() => {
-    dispatch(getUsersAction());
-    setData(GetUsers.users);
-  }, [dispatch, data]);
 
   const toggleTheme = useSelector((state) => state.themeReducer);
 

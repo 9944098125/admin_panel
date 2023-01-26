@@ -14,7 +14,7 @@ export const main = [
   {
     icon: <DashboardIcon />,
     text: "Dashboard",
-    link: "/home",
+    link: "/",
   },
 ];
 
@@ -26,18 +26,18 @@ export const lists = [
   },
   {
     icon: <ProductionQuantityLimitsIcon />,
-    text: "Products",
-    link: "/products",
+    text: "Hotels",
+    link: "/hotels",
   },
   {
     icon: <SettingsVoiceIcon />,
-    text: "Orders",
-    link: "/home",
+    text: "Rooms",
+    link: "/rooms",
   },
   {
     icon: <DeliveryDiningIcon />,
     text: "Delivery",
-    link: "/home",
+    link: "/",
   },
 ];
 
@@ -45,12 +45,12 @@ export const useful = [
   {
     icon: <QueryStatsIcon />,
     text: "Stats",
-    link: "/home",
+    link: "/",
   },
   {
     icon: <NotificationsIcon />,
     text: "Notifications",
-    link: "/home",
+    link: "/",
   },
 ];
 
@@ -58,17 +58,17 @@ export const services = [
   {
     icon: <SettingsSystemDaydreamIcon />,
     text: "System Health",
-    link: "/home",
+    link: "/",
   },
   {
     icon: <AddToQueueIcon />,
     text: "Logs",
-    link: "/home",
+    link: "/",
   },
   {
     icon: <SettingsIcon />,
     text: "Settings",
-    link: "/home",
+    link: "/",
   },
 ];
 
@@ -76,6 +76,6 @@ export const user = [
   {
     icon: <AccountCircleIcon />,
     text: "Profile",
-    link: "/home",
+    link: "/",
   },
 ];

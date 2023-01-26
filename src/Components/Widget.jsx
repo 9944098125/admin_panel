@@ -1,19 +1,19 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import { Box, IconButton, Typography } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { DarkModeContext } from "../Context/darkModeContext";
 
 function Widget({ type }) {
+  const { darkMode } = useContext(DarkModeContext);
   let data;
 
   // temporary
   const amount = 500;
   const difference = 20;
-  const toggleTheme = useSelector((state) => state.themeReducer);
 
   switch (type) {
     case "user":
@@ -102,12 +102,10 @@ function Widget({ type }) {
           height: "100px",
           borderRadius: "9px",
           justifyContent: "space-between",
-          boxShadow: `${
-            toggleTheme.toggleTheme
-              ? "0 3px 10px rgb(0 0 0 / 0.2)"
-              : "12px 12px 2px 1px rgba(0, 0, 255, .2)"
-          }`,
-          color: `${toggleTheme.toggleTheme ? "black" : "white"}`,
+          boxShadow: darkMode
+            ? "6px -11px 26px 0px rgba(0,251,255,0.92)"
+            : "0 3px 10px rgb(0 0 0 / 0.2)",
+          color: darkMode ? "white" : "black",
         }}
       >
         <Box

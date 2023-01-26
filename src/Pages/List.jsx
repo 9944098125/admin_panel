@@ -1,30 +1,24 @@
 import { Box } from "@mui/system";
-import React, { Fragment, useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { Fragment, useEffect, useContext } from "react";
 import DataTable from "../Components/DataTable";
-import { useNavigate } from "react-router-dom";
+import { DarkModeContext } from "../Context/darkModeContext";
 
-function DataTableList({ title, btnText, link }) {
-  const toggleTheme = useSelector((state) => state.themeReducer);
-
-  const user = useSelector((state) => state.auth);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!user.user) {
-      navigate("/login");
-    }
-  }, [user, navigate]);
-
+function DataTableList({ title, btnText, link, columns }) {
+  const { darkMode } = useContext(DarkModeContext);
   return (
     <Fragment>
       <Box
         sx={{
           p: 1,
-          backgroundColor: `${toggleTheme.toggleTheme ? "white" : "black"}`,
+          backgroundColor: darkMode ? "black" : "white",
         }}
       >
-        <DataTable title={title} btnText={btnText} link={link} />
+        <DataTable
+          columns={columns}
+          title={title}
+          btnText={btnText}
+          link={link}
+        />
       </Box>
     </Fragment>
   );

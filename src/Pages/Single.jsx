@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useContext } from "react";
 import { Avatar, Box, Button, Typography } from "@mui/material";
 import Chart from "../Components/Chart";
 import EmailIcon from "@mui/icons-material/Email";
@@ -7,27 +7,28 @@ import BusinessIcon from "@mui/icons-material/Business";
 import FlagIcon from "@mui/icons-material/Flag";
 import TableList from "../Components/Table";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { DarkModeContext } from "../Context/darkModeContext";
 
 function Single() {
-  const user = useSelector((state) => state.auth);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!user.user) {
-      navigate("/login");
-    }
-  }, [user, navigate]);
+  const { darkMode } = useContext(DarkModeContext);
   return (
     <Fragment>
-      <Box sx={{ p: 1 }}>
+      <Box
+        sx={{
+          p: 1,
+          backgroundColor: darkMode ? "black" : "white",
+          color: darkMode ? "white" : "black",
+        }}
+      >
         {/* top part */}
         <Box sx={{ p: 2, display: "flex", gap: "20px" }}>
           {/* left part */}
           <Box
             sx={{
               flex: "1.2",
-              boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)",
+              boxShadow: darkMode
+                ? "6px -11px 26px 0px rgba(0,251,255,0.92)"
+                : "0 3px 10px rgb(0 0 0 / 0.2)",
               p: 2,
               borderRadius: "9px",
             }}

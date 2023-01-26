@@ -1,11 +1,13 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect, useContext } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field } from "formik";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import Alert from "../Components/Alert";
+import { AuthContext } from "../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
+  const navigate = useNavigate();
   const [credentials] = useState({
     email: "",
     password: "",
@@ -15,6 +17,8 @@ function Login() {
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  const { loading, error, dispatch, user } = useContext(AuthContext);
 
   const validate = (values) => {
     let errors = {};
@@ -40,7 +44,23 @@ function Login() {
     return errors;
   };
 
-  const callLoginApi = (values) => {};
+  const callLoginApi = async (values) => {
+    dispatch({ type: "LOGIN_START" });
+    try {
+      const res = await axios.post("/auth/login", values);
+      if (res.data.isAdmin) {
+        dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
+        navigate("/users");
+      } else {
+        dispatch({
+          type: "LOGIN_FAILURE",
+          payload: { message: "You are not allowed!" },
+        });
+      }
+    } catch (err) {
+      dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
+    }
+  };
 
   return (
     <Fragment>
@@ -187,9 +207,6 @@ function Login() {
                     <div className="hoverParent">
                       <button type="submit" className="primary-button">
                         Login
-                      </button>
-                      <button className="register-button" type="button">
-                        Register
                       </button>
                     </div>
                   </Form>

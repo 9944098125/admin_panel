@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -7,9 +7,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Typography, Box } from "@mui/material";
-import { useSelector } from "react-redux";
+import { DarkModeContext } from "../Context/darkModeContext";
 
 function TableList() {
+  const { darkMode } = useContext(DarkModeContext);
   const rows = [
     {
       id: 1143155,
@@ -63,17 +64,13 @@ function TableList() {
     },
   ];
 
-  const toggleTheme = useSelector((state) => state.themeReducer);
-
   return (
     <Fragment>
       <Box
         sx={{
-          boxShadow: `${
-            toggleTheme.toggleTheme
-              ? "0 3px 10px rgb(0 0 0 / 0.2)"
-              : "12px 12px 2px 1px rgba(0, 0, 255, .2)"
-          }`,
+          boxShadow: darkMode
+            ? "6px -11px 26px 0px rgba(0,251,255,0.92)"
+            : "0 3px 10px rgb(0 0 0 / 0.2)",
         }}
       >
         <TableContainer>
@@ -85,7 +82,7 @@ function TableList() {
                     sx={{
                       fontWeight: "800",
                       fontSize: "14px",
-                      color: `${toggleTheme.toggleTheme ? "black" : "white"}`,
+                      color: darkMode ? "white" : "black",
                     }}
                   >
                     Tracking Id
@@ -96,7 +93,7 @@ function TableList() {
                     sx={{
                       fontWeight: "800",
                       fontSize: "14px",
-                      color: `${toggleTheme.toggleTheme ? "black" : "white"}`,
+                      color: darkMode ? "white" : "black",
                     }}
                   >
                     Product
@@ -107,7 +104,7 @@ function TableList() {
                     sx={{
                       fontWeight: "800",
                       fontSize: "14px",
-                      color: `${toggleTheme.toggleTheme ? "black" : "white"}`,
+                      color: darkMode ? "white" : "black",
                     }}
                   >
                     Customer
@@ -118,7 +115,7 @@ function TableList() {
                     sx={{
                       fontWeight: "800",
                       fontSize: "14px",
-                      color: `${toggleTheme.toggleTheme ? "black" : "white"}`,
+                      color: darkMode ? "white" : "black",
                     }}
                   >
                     Date
@@ -129,7 +126,7 @@ function TableList() {
                     sx={{
                       fontWeight: "800",
                       fontSize: "14px",
-                      color: `${toggleTheme.toggleTheme ? "black" : "white"}`,
+                      color: darkMode ? "white" : "black",
                     }}
                   >
                     Amount
@@ -140,7 +137,7 @@ function TableList() {
                     sx={{
                       fontWeight: "800",
                       fontSize: "14px",
-                      color: `${toggleTheme.toggleTheme ? "black" : "white"}`,
+                      color: darkMode ? "white" : "black",
                     }}
                   >
                     Payment Method
@@ -151,7 +148,7 @@ function TableList() {
                     sx={{
                       fontWeight: "800",
                       fontSize: "14px",
-                      color: `${toggleTheme.toggleTheme ? "black" : "white"}`,
+                      color: darkMode ? "white" : "black",
                     }}
                   >
                     Status
@@ -165,7 +162,7 @@ function TableList() {
                   <TableCell
                     sx={{
                       fontSize: "12px",
-                      color: `${toggleTheme.toggleTheme ? "black" : "white"}`,
+                      color: darkMode ? "white" : "black",
                     }}
                   >
                     {row.id}
@@ -173,7 +170,7 @@ function TableList() {
                   <TableCell
                     sx={{
                       fontSize: "12px",
-                      color: `${toggleTheme.toggleTheme ? "black" : "white"}`,
+                      color: darkMode ? "white" : "black",
                     }}
                   >
                     <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -188,7 +185,7 @@ function TableList() {
                   <TableCell
                     sx={{
                       fontSize: "12px",
-                      color: `${toggleTheme.toggleTheme ? "black" : "white"}`,
+                      color: darkMode ? "white" : "black",
                     }}
                   >
                     {row.customer}
@@ -196,7 +193,7 @@ function TableList() {
                   <TableCell
                     sx={{
                       fontSize: "12px",
-                      color: `${toggleTheme.toggleTheme ? "black" : "white"}`,
+                      color: darkMode ? "white" : "black",
                     }}
                   >
                     {row.date}
@@ -204,7 +201,7 @@ function TableList() {
                   <TableCell
                     sx={{
                       fontSize: "12px",
-                      color: `${toggleTheme.toggleTheme ? "black" : "white"}`,
+                      color: darkMode ? "white" : "black",
                     }}
                   >
                     {row.amount}
@@ -212,7 +209,7 @@ function TableList() {
                   <TableCell
                     sx={{
                       fontSize: "12px",
-                      color: `${toggleTheme.toggleTheme ? "black" : "white"}`,
+                      color: darkMode ? "white" : "black",
                     }}
                   >
                     {row.method}

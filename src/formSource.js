@@ -1,55 +1,110 @@
 export const userInputs = [
   {
-    id: 1,
+    id: "username",
     type: "text",
     placeholder: "Enter Your Name",
   },
   {
-    id: 3,
+    id: "email",
     type: "email",
     placeholder: "Enter Your Email Address",
   },
   {
-    id: 4,
+    id: "phoneNumber",
     type: "text",
     placeholder: "Enter Your Phone Number",
   },
   {
-    id: 2,
+    id: "password",
     type: "text",
     placeholder: "Enter Your Password",
   },
   {
-    id: 5,
+    id: "city",
+    type: "text",
+    placeholder: "Enter Your City",
+  },
+  {
+    id: "country",
     type: "text",
     placeholder: "Enter Your Country",
   },
 ];
 
-export const productInputs = [
+export const hotelInputs = [
   {
-    id: 1,
+    id: "name",
+    label: "Name",
     type: "text",
-    placeholder: "Enter Product Name",
+    placeholder: "My Hotel",
   },
   {
-    id: 2,
+    id: "type",
+    label: "Type",
     type: "text",
-    placeholder: "Enter Product Description",
+    placeholder: "hotel, apartment, villa, cabin, resort",
   },
   {
-    id: 3,
+    id: "city",
+    label: "City",
     type: "text",
-    placeholder: "Enter Product Category",
+    placeholder: "New York",
   },
   {
-    id: 4,
+    id: "address",
+    label: "Address",
     type: "text",
-    placeholder: "Enter Price Of Product",
+    placeholder: "elton st, 216",
   },
   {
-    id: 5,
+    id: "distance",
+    label: "Distance from City Center",
     type: "text",
-    placeholder: "Enter Availability",
+    placeholder: "500",
+  },
+  {
+    id: "title",
+    label: "Title",
+    type: "text",
+    placeholder: "The best Hotel",
+  },
+  {
+    id: "desc",
+    label: "Description",
+    type: "text",
+    placeholder: "description",
+  },
+  {
+    id: "cheapestPrice",
+    label: "Price",
+    type: "text",
+    placeholder: "100",
+  },
+];
+
+export const roomInputs = [
+  {
+    id: "title",
+    label: "Title",
+    type: "text",
+    placeholder: "2 bed room",
+  },
+  {
+    id: "desc",
+    label: "Description",
+    type: "text",
+    placeholder: "King size bed, 1 bathroom",
+  },
+  {
+    id: "price",
+    label: "Price",
+    type: "number",
+    placeholder: "100",
+  },
+  {
+    id: "maxPeople",
+    label: "Max People",
+    type: "number",
+    placeholder: "2",
   },
 ];

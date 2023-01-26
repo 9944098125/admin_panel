@@ -1,6 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import React, { Fragment } from "react";
-import { useSelector } from "react-redux";
+import React, { Fragment, useContext } from "react";
 import {
   AreaChart,
   Area,
@@ -10,6 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { DarkModeContext } from "../Context/darkModeContext";
 
 const data = [
   { name: "January", Total: 1200 },
@@ -21,21 +21,18 @@ const data = [
 ];
 
 function Chart({ aspect, title }) {
-  const toggleTheme = useSelector((state) => state.themeReducer);
-
+  const { darkMode } = useContext(DarkModeContext);
   return (
     <Fragment>
       <Box
         sx={{
           flex: "7",
-          boxShadow: `${
-            toggleTheme.toggleTheme
-              ? "0 3px 10px rgb(0 0 0 / 0.2)"
-              : "12px 12px 2px 1px rgba(0, 0, 255, .2)"
-          }`,
+          boxShadow: darkMode
+            ? "6px -11px 26px 0px rgba(0,251,255,0.92)"
+            : "0 3px 10px rgb(0 0 0 / 0.2)",
           borderRadius: "9px",
           p: 1,
-          color: `${toggleTheme.toggleTheme ? "black" : "white"}`,
+          color: darkMode ? "white" : "black",
         }}
       >
         <Typography sx={{ fontSize: "16px", fontWeight: "600" }}>

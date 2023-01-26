@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import {
   Box,
   List,
@@ -10,19 +10,16 @@ import {
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { lists, main, services, useful, user } from "./SidebarItems";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../Redux/Actions/loginAction";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { DarkModeContext } from "../Context/darkModeContext";
 
 const Sidebar = () => {
-  const dispatch = useDispatch();
+  const { darkMode } = useContext(DarkModeContext);
   const navigate = useNavigate();
-  const toggleTheme = useSelector((state) => state.themeReducer);
 
   const logoutFunc = () => {
-    dispatch(logout);
+    localStorage.removeItem("user");
     navigate("/login");
-    console.log("clicked logout");
   };
 
   return (
@@ -32,8 +29,8 @@ const Sidebar = () => {
           p: 1.5,
           flex: "2",
           borderRight: "4px solid cyan",
-          backgroundColor: `${toggleTheme.toggleTheme ? "white" : "black"}`,
-          color: `${toggleTheme.toggleTheme ? "black" : "white"}`,
+          backgroundColor: darkMode ? "black" : "white",
+          color: darkMode ? "white" : "black",
         }}
       >
         {/* logo */}

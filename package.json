@@ -25,6 +25,8 @@
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.2",
+    "sass": "^1.57.1",
+    "scss": "^0.2.4",
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
   },
@@ -51,5 +53,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:3499/api/"
 }

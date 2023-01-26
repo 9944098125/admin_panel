@@ -1,30 +1,20 @@
 import { Box, Typography } from "@mui/material";
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useContext } from "react";
 import Chart from "../Components/Chart";
 import FeaturedCharts from "../Components/FeaturedCharts";
 import Widget from "../Components/Widget";
 import TableList from "../Components/Table";
-import { useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { DarkModeContext } from "../Context/darkModeContext";
 
 function Home() {
-  const toggleTheme = useSelector((state) => state.themeReducer);
-  const user = useSelector((state) => state.auth);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!user.user) {
-      navigate("/login");
-    }
-  }, [user, navigate]);
-
+  const { darkMode } = useContext(DarkModeContext);
   return (
     <Fragment>
       {/* home container */}
       <Box
         sx={{
           p: 0.5,
-          backgroundColor: `${toggleTheme.toggleTheme ? "white" : "black"}`,
+          backgroundColor: darkMode ? "black" : "white",
         }}
       >
         {/* widgets container */}

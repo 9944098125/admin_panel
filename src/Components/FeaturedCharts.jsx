@@ -1,28 +1,25 @@
 import { Box, Typography } from "@mui/material";
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import { useSelector } from "react-redux";
+import { DarkModeContext } from "../Context/darkModeContext";
 
 function FeaturedCharts() {
-  const toggleTheme = useSelector((state) => state.themeReducer);
-
+  const { darkMode } = useContext(DarkModeContext);
   return (
     <Fragment>
       <Box
         sx={{
           flex: "3",
-          boxShadow: `${
-            toggleTheme.toggleTheme
-              ? "0 3px 10px rgb(0 0 0 / 0.2)"
-              : "12px 12px 2px 1px rgba(0, 0, 255, .2)"
-          }`,
+          boxShadow: darkMode
+            ? "6px -11px 26px 0px rgba(0,251,255,0.92)"
+            : "0 3px 10px rgb(0 0 0 / 0.2)",
           p: 2,
           borderRadius: "9px",
-          color: `${toggleTheme.toggleTheme ? "black" : "white"}`,
+          color: darkMode ? "white" : "black",
         }}
       >
         {/* top part */}

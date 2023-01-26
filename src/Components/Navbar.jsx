@@ -1,5 +1,5 @@
 import { Avatar, Box, Typography } from "@mui/material";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useContext } from "react";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
@@ -10,17 +10,17 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MessageIcon from "@mui/icons-material/Message";
 import MenuIcon from "@mui/icons-material/Menu";
 import Badge from "@mui/material/Badge";
-import toggleTheme from "../Redux/Actions/themeAction";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import { useDispatch, useSelector } from "react-redux";
+import { DarkModeContext } from "../Context/darkModeContext";
 
 const Navbar = () => {
-  const dispatch = useDispatch();
+  const { dispatch, darkMode } = useContext(DarkModeContext);
   const [activeToggle, setActiveToggle] = useState(false);
-  const toggleTheming = () => {
+
+  function toggleTheming() {
     setActiveToggle(!activeToggle);
-    dispatch(toggleTheme(!activeToggle));
-  };
+    dispatch({ type: "TOGGLE" });
+  }
 
   return (
     <Fragment>
@@ -34,7 +34,7 @@ const Navbar = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          backgroundColor: `${activeToggle ? "white" : "black"}`,
+          backgroundColor: darkMode ? "black" : "white",
         }}
       >
         <Box
@@ -51,13 +51,13 @@ const Navbar = () => {
               ml: 1,
               flex: 1,
               fontSize: "12px",
-              color: `${activeToggle ? "black" : "white"}`,
+              color: darkMode ? "white" : "black",
             }}
             placeholder="Search The Panel"
             inputProps={{ "aria-label": "search the panel" }}
           />
           <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
-            <SearchIcon sx={{ color: `${activeToggle ? "black" : "white"}` }} />
+            <SearchIcon sx={{ color: darkMode ? "white" : "black" }} />
           </IconButton>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center" }} gap="20px">
@@ -65,17 +65,17 @@ const Navbar = () => {
             sx={{
               fontSize: "25px",
               cursor: "pointer",
-              color: `${activeToggle ? "black" : "white"}`,
+              color: darkMode ? "white" : "black",
             }}
           />
           {activeToggle ? (
-            <DarkModeIcon
-              sx={{ fontSize: "25px", cursor: "pointer" }}
+            <WbSunnyIcon
+              sx={{ fontSize: "25px", cursor: "pointer", color: "white" }}
               onClick={toggleTheming}
             />
           ) : (
-            <WbSunnyIcon
-              sx={{ fontSize: "25px", cursor: "pointer", color: "white" }}
+            <DarkModeIcon
+              sx={{ fontSize: "25px", cursor: "pointer" }}
               onClick={toggleTheming}
             />
           )}
@@ -83,7 +83,7 @@ const Navbar = () => {
             sx={{
               fontSize: "25px",
               cursor: "pointer",
-              color: `${activeToggle ? "black" : "white"}`,
+              color: darkMode ? "white" : "black",
             }}
           />
           <Badge
@@ -98,7 +98,7 @@ const Navbar = () => {
               sx={{
                 fontSize: "25px",
                 cursor: "pointer",
-                color: `${activeToggle ? "black" : "white"}`,
+                color: darkMode ? "white" : "black",
               }}
             />
           </Badge>
@@ -114,7 +114,7 @@ const Navbar = () => {
               sx={{
                 fontSize: "25px",
                 cursor: "pointer",
-                color: `${activeToggle ? "black" : "white"}`,
+                color: darkMode ? "white" : "black",
               }}
             />
           </Badge>
@@ -122,7 +122,7 @@ const Navbar = () => {
             sx={{
               fontSize: "25px",
               cursor: "pointer",
-              color: `${activeToggle ? "black" : "white"}`,
+              color: darkMode ? "white" : "black",
             }}
           />
           <Avatar sx={{ height: "30px", width: "30px" }} src="" />

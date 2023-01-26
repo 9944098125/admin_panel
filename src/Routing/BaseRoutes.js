@@ -1,10 +1,12 @@
 import Home from "../Pages/Home";
 import Login from "../Pages/Login";
 import DataTableList from "../Pages/List";
-import New from "../Pages/New";
 import Single from "../Pages/Single";
 import Navbar from "../Components/Navbar";
 import Sidebar from "../Components/Sidebar";
+import New from "../Pages/new/New";
+import NewHotel from "../Pages/newHotel/NewHotel";
+import NewRoom from "../Pages/newRoom/NewRoom";
 import "../App.css";
 
 import {
@@ -13,10 +15,11 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import { Stack } from "@mui/material";
 import { productInputs, userInputs } from "../formSource";
-import { useSelector } from "react-redux";
+import { AuthContext } from "../Context/AuthContext";
+import { hotelColumns, roomColumns, userColumns } from "../DatatableSource";
 
 const Layout = () => {
   return (
@@ -35,11 +38,9 @@ const Layout = () => {
 };
 
 const ProtectedRoute = ({ children }) => {
-  const user = useSelector((state) => state.auth);
-  const loggedInUser = user.user;
-  // console.log("logged in user: ", loggedInUser);
+  const user = localStorage.getItem("user");
 
-  if (!loggedInUser) {
+  if (!user) {
     return <Navigate to="/login" />;
   }
 
@@ -67,7 +68,12 @@ const router = createBrowserRouter([
         path: "/users",
         element: (
           <ProtectedRoute>
-            <DataTableList title="Users" btnText="Add New User" link="users" />
+            <DataTableList
+              columns={userColumns}
+              title="Users"
+              btnText="Add New User"
+              link="users"
+            />
           </ProtectedRoute>
         ),
       },
@@ -80,38 +86,60 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/users/new",
-        element: (
-          <ProtectedRoute>
-            <New inputs={userInputs} title="Add New User" />{" "}
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/products",
+        path: "/hotels",
         element: (
           <ProtectedRoute>
             <DataTableList
-              title="Products"
-              btnText="Add New Product"
-              link="products"
+              columns={hotelColumns}
+              title="Hotels"
+              btnText="Add New Hotel"
+              link="hotels"
             />
           </ProtectedRoute>
         ),
       },
       {
-        path: "/products/:productId",
+        path: "/rooms",
         element: (
           <ProtectedRoute>
-            <Single />{" "}
+            <DataTableList
+              columns={roomColumns}
+              title="Rooms"
+              btnText="Add New Room"
+              link="rooms"
+            />
           </ProtectedRoute>
         ),
       },
       {
-        path: "/products/new",
+        path: "/hotels/:hotelId",
         element: (
           <ProtectedRoute>
-            <New inputs={productInputs} title="Add New Product" />
+            <Single />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/users/new",
+        element: (
+          <ProtectedRoute>
+            <New inputs={userInputs} title="Add New Product" />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/hotels/new",
+        element: (
+          <ProtectedRoute>
+            <NewHotel />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/rooms/new",
+        element: (
+          <ProtectedRoute>
+            <NewRoom />
           </ProtectedRoute>
         ),
       },

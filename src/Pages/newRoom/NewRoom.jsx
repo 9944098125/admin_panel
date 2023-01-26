@@ -1,11 +1,13 @@
 import "./newRoom.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { roomInputs } from "../../formSource";
 import useFetch from "../../Hooks/useFetch";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { DarkModeContext } from "../../Context/darkModeContext";
 
 const NewRoom = () => {
+  const { darkMode } = useContext(DarkModeContext);
   const navigate = useNavigate();
   const [info, setInfo] = useState({});
   const [hotelId, setHotelId] = useState(undefined);
@@ -34,7 +36,7 @@ const NewRoom = () => {
 
   // console.log(info);
   return (
-    <div className="new">
+    <div className={darkMode ? "darkNew" : "new"}>
       <div className="newContainer">
         <div className="top">
           <h1>Add New Room</h1>

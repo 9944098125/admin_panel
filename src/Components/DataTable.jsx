@@ -22,13 +22,13 @@ export default function DataTable({ title, btnText, link, columns }) {
 
   useEffect(() => {
     setList(data);
-  }, [data, setList]);
+  }, [data]);
 
   const deleteRow = async (id) => {
     try {
       await axios.delete(`/${path}/${id}`);
       setList(list.filter((item) => item._id !== id));
-      navigate(`/${link}/new`);
+      // navigate(`/${link}/new`);
     } catch (err) {}
   };
 

@@ -22,6 +22,8 @@ const Navbar = () => {
     dispatch({ type: "TOGGLE" });
   }
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <Fragment>
       <Box
@@ -125,7 +127,10 @@ const Navbar = () => {
               color: darkMode ? "white" : "black",
             }}
           />
-          <Avatar sx={{ height: "30px", width: "30px" }} src="" />
+          <Avatar
+            sx={{ height: "30px", width: "30px" }}
+            src={user.profilePicture ? user.profilePicture : ""}
+          />
         </Box>
       </Box>
     </Fragment>

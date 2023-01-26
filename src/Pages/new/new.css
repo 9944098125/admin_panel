@@ -3,6 +3,12 @@
   display: flex;
 }
 
+.darkNew {
+  background-color: black;
+  color: white;
+  height: 100%;
+}
+
 .newContainer {
   flex: 6;
 }

@@ -1,10 +1,12 @@
 import "./new.css";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { DarkModeContext } from "../../Context/darkModeContext";
 
 const New = ({ inputs, title }) => {
+  const { darkMode } = useContext(DarkModeContext);
   const navigate = useNavigate();
   const [file, setFile] = useState("");
   const [info, setInfo] = useState({});
@@ -40,7 +42,7 @@ const New = ({ inputs, title }) => {
 
   console.log(info);
   return (
-    <div className="new">
+    <div className={darkMode ? "darkNew" : "new"}>
       <div className="newContainer">
         <div className="top">
           <h1>{title}</h1>

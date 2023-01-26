@@ -1,12 +1,14 @@
 import "./newHotel.css";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { hotelInputs } from "../../formSource";
 import useFetch from "../../Hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { DarkModeContext } from "../../Context/darkModeContext";
 
 const NewHotel = () => {
+  const { darkMode } = useContext(DarkModeContext);
   const navigate = useNavigate();
   const [files, setFiles] = useState("");
   const [info, setInfo] = useState({});
@@ -59,7 +61,7 @@ const NewHotel = () => {
     }
   };
   return (
-    <div className="new">
+    <div className={darkMode ? "darkNew" : "new"}>
       <div className="newContainer">
         <div className="top">
           <h1>Add New Product</h1>

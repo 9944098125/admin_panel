@@ -129,7 +129,7 @@ const Navbar = () => {
           />
           <Avatar
             sx={{ height: "30px", width: "30px" }}
-            src={user.profilePicture ? user.profilePicture : ""}
+            src={user !== null ? user.profilePicture : ""}
           />
         </Box>
       </Box>

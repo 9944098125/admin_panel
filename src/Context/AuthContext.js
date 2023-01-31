@@ -2,7 +2,7 @@ import { createContext, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 
 const INITIAL_STATE = {
-  user: JSON.parse(localStorage.getItem("user")) || null,
+  user: JSON.parse(localStorage.getItem("user")),
   loading: false,
   error: null,
 };

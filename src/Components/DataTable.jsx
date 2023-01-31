@@ -1,35 +1,34 @@
 import React, { Fragment, useState, useEffect, useContext } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns } from "../DatatableSource";
 import { Box } from "@mui/system";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Link, useFetcher, useLocation, useNavigate } from "react-router-dom";
-import { Button, Typography } from "@mui/material";
-import useFetch from "../Hooks/useFetch";
-import axios from "axios";
+import { Link, useLocation } from "react-router-dom";
+import { Button, CircularProgress, Typography } from "@mui/material";
 import { DarkModeContext } from "../Context/darkModeContext";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteUHR, getUHR } from "../Redux/Actions/getUHR";
 
 export default function DataTable({ title, btnText, link, columns }) {
+  const dispatch = useDispatch();
   const { darkMode } = useContext(DarkModeContext);
-  const navigate = useNavigate();
   const location = useLocation();
   // console.log(location);
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState([]);
-  const { data, loading, error } = useFetch(`/${path}`);
-  // console.log(data);
+
+  const data = useSelector((state) => state.getUHR);
 
   useEffect(() => {
-    setList(data);
-  }, [data]);
+    dispatch(getUHR(path));
+  }, [dispatch, path]);
 
-  const deleteRow = async (id) => {
-    try {
-      await axios.delete(`/${path}/${id}`);
-      setList(list.filter((item) => item._id !== id));
-      // navigate(`/${link}/new`);
-    } catch (err) {}
+  useEffect(() => {
+    setList(data.UHRData);
+  }, [list, data.UHRData]);
+
+  const deleteRow = (id) => {
+    dispatch(deleteUHR(path, id));
   };
 
   const actionColumn = [
@@ -106,15 +105,19 @@ export default function DataTable({ title, btnText, link, columns }) {
             color: darkMode ? "white" : "black",
           }}
         >
-          <DataGrid
-            style={{ color: darkMode ? "white" : "black" }}
-            rows={list}
-            columns={columns.concat(actionColumn)}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
-            checkboxSelection
-            getRowId={(row) => row._id}
-          />
+          {data.loading ? (
+            <CircularProgress />
+          ) : (
+            <DataGrid
+              style={{ color: darkMode ? "white" : "black" }}
+              rows={list}
+              columns={columns.concat(actionColumn)}
+              pageSize={5}
+              rowsPerPageOptions={[5]}
+              checkboxSelection
+              getRowId={(row) => row._id}
+            />
+          )}
         </div>
       </Box>
     </Fragment>

@@ -2,11 +2,14 @@ import React, { Fragment, useState, useEffect, useContext } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { AuthContext } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../Redux/Actions/login";
+import AlertModal from "../Components/AlertModal";
 
 function Login() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [credentials] = useState({
     email: "",
@@ -14,11 +17,12 @@ function Login() {
   });
   const [showPassword, setShowPassword] = useState(false);
 
+  const LoginDetails = useSelector((state) => state.auth);
+  const Alert = useSelector((state) => state.alert);
+
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-
-  const { loading, error, dispatch, user } = useContext(AuthContext);
 
   const validate = (values) => {
     let errors = {};
@@ -44,26 +48,19 @@ function Login() {
     return errors;
   };
 
-  const callLoginApi = async (values) => {
-    dispatch({ type: "LOGIN_START" });
-    try {
-      const res = await axios.post("/auth/login", values);
-      if (res.data.isAdmin) {
-        dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
-        navigate("/users");
-      } else {
-        dispatch({
-          type: "LOGIN_FAILURE",
-          payload: { message: "You are not allowed!" },
-        });
-      }
-    } catch (err) {
-      dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
-    }
+  const callLoginApi = (values) => {
+    dispatch(login(values));
   };
+
+  useEffect(() => {
+    if (LoginDetails.token && LoginDetails.isAuthenticated) {
+      navigate("/");
+    }
+  }, [navigate, LoginDetails.isAuthenticated, LoginDetails.token]);
 
   return (
     <Fragment>
+      {Alert.message && <AlertModal show={true} />}
       <Box
         sx={{
           display: "flex",

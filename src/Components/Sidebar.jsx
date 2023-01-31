@@ -12,13 +12,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { lists, main, services, useful, user } from "./SidebarItems";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { DarkModeContext } from "../Context/darkModeContext";
+import { useDispatch } from "react-redux";
+import { logout } from "../Redux/Actions/login";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
   const { darkMode } = useContext(DarkModeContext);
   const navigate = useNavigate();
 
   const logoutFunc = () => {
-    localStorage.removeItem("user");
+    dispatch(logout());
     navigate("/login");
   };
 

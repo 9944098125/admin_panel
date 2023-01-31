@@ -6,8 +6,11 @@ import useFetch from "../../Hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { DarkModeContext } from "../../Context/darkModeContext";
+import { useDispatch } from "react-redux";
+import { createHotel } from "../../Redux/Actions/createHotel";
 
 const NewHotel = () => {
+  const dispatch = useDispatch();
   const { darkMode } = useContext(DarkModeContext);
   const navigate = useNavigate();
   const [files, setFiles] = useState("");
@@ -54,7 +57,9 @@ const NewHotel = () => {
         photos: list,
       };
 
-      await axios.post("/hotels/createHotel", newhotel);
+      dispatch(createHotel(newhotel));
+
+      // await axios.post("/hotels/createHotel", newhotel);
       navigate("/hotels");
     } catch (err) {
       console.log(err);

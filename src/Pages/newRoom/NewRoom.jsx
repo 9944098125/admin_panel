@@ -1,20 +1,29 @@
 import "./newRoom.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { roomInputs } from "../../formSource";
-import useFetch from "../../Hooks/useFetch";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { DarkModeContext } from "../../Context/darkModeContext";
+import { useDispatch, useSelector } from "react-redux";
+import { getHotels } from "../../Redux/Actions/getHotels";
+import { createRoom } from "../../Redux/Actions/createRoom";
 
 const NewRoom = () => {
+  const dispatch = useDispatch();
   const { darkMode } = useContext(DarkModeContext);
+
+  useEffect(() => {
+    dispatch(getHotels());
+  }, [dispatch]);
+
+  const data = useSelector((state) => state.getHotels.data);
+
   const navigate = useNavigate();
   const [info, setInfo] = useState({});
   const [hotelId, setHotelId] = useState(undefined);
   const [rooms, setRooms] = useState([]);
 
   console.log(hotelId);
-  const { data, loading } = useFetch("/hotels");
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -23,15 +32,21 @@ const NewRoom = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     const roomNumbers = rooms.split(",").map((room) => ({ number: room }));
-    try {
-      await axios.post(`/rooms/createRoom/${hotelId}`, {
-        ...info,
-        roomNumbers,
-      });
-      navigate("/rooms");
-    } catch (err) {
-      console.log(err);
-    }
+    // try {
+    //   await axios.post(`/rooms/createRoom/${hotelId}`, {
+    //     ...info,
+    //     roomNumbers,
+    //   });
+    //   navigate("/rooms");
+    // } catch (err) {
+    //   console.log(err);
+    // }
+    const information = {
+      ...info,
+      roomNumbers,
+    };
+    dispatch(createRoom(hotelId, information));
+    navigate("/rooms");
   };
 
   // console.log(info);
@@ -68,17 +83,15 @@ const NewRoom = () => {
                   id="hotelId"
                   onChange={(e) => setHotelId(e.target.value)}
                 >
-                  {loading
-                    ? "loading"
-                    : data &&
-                      data.map(
-                        (hotel) =>
-                          hotel && (
-                            <option key={hotel._id} value={hotel._id}>
-                              {hotel.name}
-                            </option>
-                          )
-                      )}
+                  {data &&
+                    data.map(
+                      (hotel) =>
+                        hotel && (
+                          <option key={hotel._id} value={hotel._id}>
+                            {hotel.name}
+                          </option>
+                        )
+                    )}
                 </select>
               </div>
               <button onClick={handleClick}>Send</button>

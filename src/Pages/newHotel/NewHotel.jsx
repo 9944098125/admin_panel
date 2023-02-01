@@ -1,13 +1,13 @@
 import "./newHotel.css";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { hotelInputs } from "../../formSource";
-import useFetch from "../../Hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { DarkModeContext } from "../../Context/darkModeContext";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createHotel } from "../../Redux/Actions/createHotel";
+import { getRooms } from "../../Redux/Actions/getRooms";
 
 const NewHotel = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,11 @@ const NewHotel = () => {
   const [info, setInfo] = useState({});
   const [rooms, setRooms] = useState([]);
 
-  const { data, loading, error } = useFetch("/rooms");
+  useEffect(() => {
+    dispatch(getRooms());
+  }, [dispatch]);
+
+  const data = useSelector((state) => state.getRooms.data);
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -31,7 +35,7 @@ const NewHotel = () => {
     setRooms(value);
   };
 
-  console.log(files);
+  // console.log(files);
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -118,14 +122,12 @@ const NewHotel = () => {
               <div className="selectRooms">
                 <label>Rooms</label>
                 <select id="rooms" multiple onChange={handleSelect}>
-                  {loading
-                    ? "loading"
-                    : data &&
-                      data.map((room) => (
-                        <option key={room._id} value={room._id}>
-                          {room.title}
-                        </option>
-                      ))}
+                  {data &&
+                    data.map((room) => (
+                      <option key={room._id} value={room._id}>
+                        {room.title}
+                      </option>
+                    ))}
                 </select>
               </div>
               <button onClick={handleClick}>Send</button>

@@ -4,8 +4,11 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { DarkModeContext } from "../../Context/darkModeContext";
+import { register } from "../../Redux/Actions/register";
+import { useDispatch } from "react-redux";
 
 const New = ({ inputs, title }) => {
+  const dispatch = useDispatch();
   const { darkMode } = useContext(DarkModeContext);
   const navigate = useNavigate();
   const [file, setFile] = useState("");
@@ -33,14 +36,15 @@ const New = ({ inputs, title }) => {
         profilePicture: url,
       };
 
-      await axios.post("/auth/register", newUser);
+      // await axios.post("/auth/register", newUser);
+      dispatch(register(newUser));
       navigate("/users");
     } catch (err) {
       console.log(err);
     }
   };
 
-  console.log(info);
+  // console.log(info);
   return (
     <div className={darkMode ? "darkNew" : "new"}>
       <div className="newContainer">

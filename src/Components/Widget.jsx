@@ -5,10 +5,10 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import { Link } from "react-router-dom";
-import { DarkModeContext } from "../Context/darkModeContext";
+import { useSelector } from "react-redux";
 
 function Widget({ type }) {
-  const { darkMode } = useContext(DarkModeContext);
+  const darkMode = useSelector((state) => state.toggleTheme.darkMode);
   let data;
 
   // temporary

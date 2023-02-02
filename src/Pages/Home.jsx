@@ -4,10 +4,10 @@ import Chart from "../Components/Chart";
 import FeaturedCharts from "../Components/FeaturedCharts";
 import Widget from "../Components/Widget";
 import TableList from "../Components/Table";
-import { DarkModeContext } from "../Context/darkModeContext";
+import { useSelector } from "react-redux";
 
 function Home() {
-  const { darkMode } = useContext(DarkModeContext);
+  const darkMode = useSelector((state) => state.toggleTheme.darkMode);
   return (
     <Fragment>
       {/* home container */}

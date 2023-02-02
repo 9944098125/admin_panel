@@ -12,15 +12,20 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Badge from "@mui/material/Badge";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import { DarkModeContext } from "../Context/darkModeContext";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTheme } from "../Redux/Actions/toggleTheme";
 
 const Navbar = () => {
-  const { dispatch, darkMode } = useContext(DarkModeContext);
+  const dispatch = useDispatch();
+
   const [activeToggle, setActiveToggle] = useState(false);
 
   function toggleTheming() {
     setActiveToggle(!activeToggle);
-    dispatch({ type: "TOGGLE" });
+    dispatch(toggleTheme());
   }
+
+  const darkMode = useSelector((state) => state.toggleTheme.darkMode);
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -71,13 +76,13 @@ const Navbar = () => {
             }}
           />
           {activeToggle ? (
-            <WbSunnyIcon
-              sx={{ fontSize: "25px", cursor: "pointer", color: "white" }}
+            <DarkModeIcon
+              sx={{ fontSize: "25px", cursor: "pointer" }}
               onClick={toggleTheming}
             />
           ) : (
-            <DarkModeIcon
-              sx={{ fontSize: "25px", cursor: "pointer" }}
+            <WbSunnyIcon
+              sx={{ fontSize: "25px", cursor: "pointer", color: "white" }}
               onClick={toggleTheming}
             />
           )}

@@ -1,16 +1,16 @@
 import "./newRoom.css";
 import { useState, useContext, useEffect } from "react";
 import { roomInputs } from "../../formSource";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { DarkModeContext } from "../../Context/darkModeContext";
 import { useDispatch, useSelector } from "react-redux";
 import { getHotels } from "../../Redux/Actions/getHotels";
 import { createRoom } from "../../Redux/Actions/createRoom";
+import AlertModal from "../../Components/AlertModal";
+import { CircularProgress } from "@mui/material";
 
 const NewRoom = () => {
   const dispatch = useDispatch();
-  const { darkMode } = useContext(DarkModeContext);
+  const darkMode = useSelector((state) => state.toggleTheme.darkMode);
 
   useEffect(() => {
     dispatch(getHotels());
@@ -46,12 +46,23 @@ const NewRoom = () => {
       roomNumbers,
     };
     dispatch(createRoom(hotelId, information));
-    navigate("/rooms");
   };
+
+  const Alert = useSelector((state) => state.alert);
+  const Room = useSelector((state) => state.createRoom);
+
+  useEffect(() => {
+    if (Alert.type === "success") {
+      setTimeout(() => {
+        navigate("/rooms");
+      }, 3000);
+    }
+  }, [Alert, navigate]);
 
   // console.log(info);
   return (
     <div className={darkMode ? "darkNew" : "new"}>
+      {Alert.message && <AlertModal show={true} />}
       <div className="newContainer">
         <div className="top">
           <h1>Add New Room</h1>
@@ -94,7 +105,10 @@ const NewRoom = () => {
                     )}
                 </select>
               </div>
-              <button onClick={handleClick}>Send</button>
+              <button onClick={handleClick}>
+                {Room.loading && <CircularProgress sx={{ fontSize: "15px" }} />}
+                Send
+              </button>
             </form>
           </div>
         </div>

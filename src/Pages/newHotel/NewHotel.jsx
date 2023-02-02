@@ -4,14 +4,15 @@ import { useState, useContext, useEffect } from "react";
 import { hotelInputs } from "../../formSource";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { DarkModeContext } from "../../Context/darkModeContext";
 import { useDispatch, useSelector } from "react-redux";
 import { createHotel } from "../../Redux/Actions/createHotel";
 import { getRooms } from "../../Redux/Actions/getRooms";
+import AlertModal from "../../Components/AlertModal";
+import { CircularProgress } from "@mui/material";
 
 const NewHotel = () => {
   const dispatch = useDispatch();
-  const { darkMode } = useContext(DarkModeContext);
+  const darkMode = useSelector((state) => state.toggleTheme.darkMode);
   const navigate = useNavigate();
   const [files, setFiles] = useState("");
   const [info, setInfo] = useState({});
@@ -64,13 +65,25 @@ const NewHotel = () => {
       dispatch(createHotel(newhotel));
 
       // await axios.post("/hotels/createHotel", newhotel);
-      navigate("/hotels");
     } catch (err) {
       console.log(err);
     }
   };
+
+  const Alert = useSelector((state) => state.alert);
+  const Hotel = useSelector((state) => state.createHotel);
+
+  useEffect(() => {
+    if (Alert.type === "success") {
+      setTimeout(() => {
+        navigate("/hotels");
+      }, 3000);
+    }
+  }, [Alert, navigate]);
+
   return (
     <div className={darkMode ? "darkNew" : "new"}>
+      {Alert.message && <AlertModal show={true} />}
       <div className="newContainer">
         <div className="top">
           <h1>Add New Product</h1>
@@ -130,7 +143,12 @@ const NewHotel = () => {
                     ))}
                 </select>
               </div>
-              <button onClick={handleClick}>Send</button>
+              <button onClick={handleClick}>
+                {Hotel.loading && (
+                  <CircularProgress sx={{ fontSize: "15px" }} />
+                )}
+                Send
+              </button>
             </form>
           </div>
         </div>

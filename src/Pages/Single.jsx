@@ -6,11 +6,10 @@ import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import BusinessIcon from "@mui/icons-material/Business";
 import FlagIcon from "@mui/icons-material/Flag";
 import TableList from "../Components/Table";
-import { useNavigate } from "react-router-dom";
-import { DarkModeContext } from "../Context/darkModeContext";
+import { useSelector } from "react-redux";
 
 function Single() {
-  const { darkMode } = useContext(DarkModeContext);
+  const darkMode = useSelector((state) => state.toggleTheme.darkMode);
   return (
     <Fragment>
       <Box

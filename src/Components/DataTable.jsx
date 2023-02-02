@@ -3,21 +3,24 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Box } from "@mui/system";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button, CircularProgress, Typography } from "@mui/material";
-import { DarkModeContext } from "../Context/darkModeContext";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteUHR, getUHR } from "../Redux/Actions/getUHR";
+import AlertModal from "./AlertModal";
 
 export default function DataTable({ title, btnText, link, columns }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { darkMode } = useContext(DarkModeContext);
   const location = useLocation();
   // console.log(location);
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState([]);
 
+  const darkMode = useSelector((state) => state.toggleTheme.darkMode);
+
   const data = useSelector((state) => state.getUHR);
+  const Alert = useSelector((state) => state.alert);
 
   useEffect(() => {
     dispatch(getUHR(path));
@@ -25,10 +28,14 @@ export default function DataTable({ title, btnText, link, columns }) {
 
   useEffect(() => {
     setList(data.UHRData);
-  }, [list, data.UHRData]);
+  }, [list, data]);
 
   const deleteRow = (id) => {
     dispatch(deleteUHR(path, id));
+    setTimeout(() => {
+      navigate(`/${path}/new`);
+    }, 1000);
+    navigate(`/${path}`);
   };
 
   const actionColumn = [
@@ -54,6 +61,7 @@ export default function DataTable({ title, btnText, link, columns }) {
 
   return (
     <Fragment>
+      {Alert.message && <AlertModal show={true} />}
       <Box
         sx={{
           p: 3,

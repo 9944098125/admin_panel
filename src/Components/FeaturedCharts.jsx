@@ -5,10 +5,10 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import { DarkModeContext } from "../Context/darkModeContext";
+import { useSelector } from "react-redux";
 
 function FeaturedCharts() {
-  const { darkMode } = useContext(DarkModeContext);
+  const darkMode = useSelector((state) => state.toggleTheme.darkMode);
   return (
     <Fragment>
       <Box

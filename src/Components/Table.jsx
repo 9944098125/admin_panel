@@ -5,12 +5,11 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import { Typography, Box } from "@mui/material";
-import { DarkModeContext } from "../Context/darkModeContext";
+import { useSelector } from "react-redux";
 
 function TableList() {
-  const { darkMode } = useContext(DarkModeContext);
+  const darkMode = useSelector((state) => state.toggleTheme.darkMode);
   const rows = [
     {
       id: 1143155,

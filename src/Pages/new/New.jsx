@@ -1,18 +1,19 @@
 import "./new.css";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { DarkModeContext } from "../../Context/darkModeContext";
 import { register } from "../../Redux/Actions/register";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import AlertModal from "../../Components/AlertModal";
+import { CircularProgress } from "@mui/material";
 
 const New = ({ inputs, title }) => {
   const dispatch = useDispatch();
-  const { darkMode } = useContext(DarkModeContext);
   const navigate = useNavigate();
   const [file, setFile] = useState("");
   const [info, setInfo] = useState({});
+  const darkMode = useSelector((state) => state.toggleTheme.darkMode);
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -38,15 +39,26 @@ const New = ({ inputs, title }) => {
 
       // await axios.post("/auth/register", newUser);
       dispatch(register(newUser));
-      navigate("/users");
     } catch (err) {
       console.log(err);
     }
   };
 
+  const Alert = useSelector((state) => state.alert);
+  const Register = useSelector((state) => state.register);
+
+  useEffect(() => {
+    if (Alert.type === "success") {
+      setTimeout(() => {
+        navigate("/users");
+      }, 3000);
+    }
+  }, [Alert, navigate]);
+
   // console.log(info);
   return (
     <div className={darkMode ? "darkNew" : "new"}>
+      {Alert.message && <AlertModal show={true} />}
       <div className="newContainer">
         <div className="top">
           <h1>{title}</h1>
@@ -87,7 +99,12 @@ const New = ({ inputs, title }) => {
                   />
                 </div>
               ))}
-              <button onClick={handleClick}>Send</button>
+              <button onClick={handleClick}>
+                {Register.loading && (
+                  <CircularProgress sx={{ fontSize: "15px" }} />
+                )}
+                Send
+              </button>
             </form>
           </div>
         </div>

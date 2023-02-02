@@ -7,6 +7,8 @@ import getRooms from "./getRooms";
 import getHotels from "./getHotels";
 import createRoom from "./createRoom";
 import register from "./register";
+import createHotel from "./createHotel";
+import toggleTheme from "./toggleTheme";
 
 export default combineReducers({
   alert,
@@ -16,4 +18,6 @@ export default combineReducers({
   getHotels,
   createRoom,
   register,
+  createHotel,
+  toggleTheme,
 });

@@ -3,6 +3,10 @@
   display: flex;
 }
 
+.darkNew {
+  background-color: black;
+}
+
 .newContainer {
   flex: 6;
 }
@@ -52,11 +56,6 @@ form {
 select {
   width: 100%;
   padding: 10px;
-}
-.darkNew {
-  background-color: black;
-  color: white;
-  height: 100%;
 }
 
 .formInput {

@@ -9,8 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { DarkModeContext } from "../Context/darkModeContext";
-
+import { useSelector } from "react-redux";
 const data = [
   { name: "January", Total: 1200 },
   { name: "February", Total: 450 },
@@ -21,7 +20,7 @@ const data = [
 ];
 
 function Chart({ aspect, title }) {
-  const { darkMode } = useContext(DarkModeContext);
+  const darkMode = useSelector((state) => state.toggleTheme.darkMode);
   return (
     <Fragment>
       <Box

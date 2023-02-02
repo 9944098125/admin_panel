@@ -1,10 +1,10 @@
 import { Box } from "@mui/system";
 import React, { Fragment, useEffect, useContext } from "react";
+import { useSelector } from "react-redux";
 import DataTable from "../Components/DataTable";
-import { DarkModeContext } from "../Context/darkModeContext";
 
 function DataTableList({ title, btnText, link, columns }) {
-  const { darkMode } = useContext(DarkModeContext);
+  const darkMode = useSelector((state) => state.toggleTheme.darkMode);
   return (
     <Fragment>
       <Box

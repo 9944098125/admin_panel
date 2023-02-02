@@ -4,6 +4,7 @@ const initialState = {
   UHRData: [],
   errorMsg: "",
   loading: false,
+  successMsg: "",
 };
 
 export default function getUHR(state = initialState, action) {
@@ -24,6 +25,16 @@ export default function getUHR(state = initialState, action) {
       return {
         ...state,
         loading: false,
+        errorMsg: payload,
+      };
+    case "DELETE_UHR_SUCCESS":
+      return {
+        ...state,
+        successMsg: payload,
+      };
+    case "DELETE_UHR_FAIL":
+      return {
+        ...state,
         errorMsg: payload,
       };
     default:
